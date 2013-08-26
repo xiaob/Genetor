@@ -1,0 +1,27 @@
+#*com/controller/{objectName}.java*#
+
+package com.controller;
+
+/**
+* Created with IntelliJ IDEA.
+* User: http://inhu.net
+* Date: 13-8-26
+* Time: 上午1:57
+* To change this template use File | Settings | File Templates.
+*/
+public class ${objectName} {
+#foreach($field in $fieldList)
+    private  $field.dataType $field.name_fl;
+#end
+
+#foreach($field in $fieldList)
+    public void set$field.name_fu ($field.dataType $field.name_fl){
+        this.$field.name_fl = $field.name_fl;
+    }
+
+    public $field.dataType get$field.name_fu (){
+        return this.$field.name_fl;
+    }
+#end
+}
+
