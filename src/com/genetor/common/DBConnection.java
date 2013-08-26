@@ -49,6 +49,9 @@ public class DBConnection {
         if (MYSQL_FLAG.equals(model.getDBtype())) {
             DBdriver = "com.mysql.jdbc.Driver";
         }
+        if(ORACLE_FLAG.equals(model.getDBtype())){
+            DBdriver = "oracle.jdbc.driver.OracleDriver";
+        }
         DBurl = model.getDBurl();
         DBuser = model.getDBuser();
         DBpwd = model.getDBpwd();

@@ -49,6 +49,7 @@ public class MainFrame extends JFrame implements ActionListener {
         password_lab.setBounds(20, 240, 120, 30);
         dbType.setBounds(115, 40, 200, 30);
         dbType.addItem(DBConnection.MYSQL_FLAG);
+        dbType.addItem(DBConnection.ORACLE_FLAG);
         dbUrl_txt.setBounds(115, 90, 200, 30);
         dbUrl_txt.setText("jdbc:mysql://localhost:3306/");
         dbName_txt.setBounds(115, 140, 200, 30);

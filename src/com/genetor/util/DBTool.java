@@ -84,7 +84,7 @@ public class DBTool {
         return columns;
     }
 
-    public static Field getColumnField(Connection conn, String tableName, String columnName) throws SQLException {
+    public static Field getColumnField(Connection conn,String dbtype, String tableName, String columnName) throws SQLException {
         Field field = new Field();
         DatabaseMetaData databaseMetaData = conn.getMetaData();
         ResultSet columnSet = databaseMetaData.getColumns(null, "%", tableName, columnName);
@@ -97,7 +97,7 @@ public class DBTool {
                 int nullable = columnSet.getInt("NULLABLE");
 
 
-                String fieldType = translateToJavaType(DBConnection.MYSQL_FLAG, columnTypeName);
+                String fieldType = translateToJavaType(dbtype, columnTypeName);
                 String fieldName_fl = initialStrToLower(columnName);
                 String fieldName_fu = initialStrUpper(columnName);
 

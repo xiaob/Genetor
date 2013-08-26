@@ -187,7 +187,7 @@ public class TableFrame extends JFrame implements ActionListener {
                     if (isSelect) {
                         try {
                             String remark = (String) tableView.getModel().getValueAt(i, 4);
-                            Field field = DBTool.getColumnField(conn, selecedTable, columnName);
+                            Field field = DBTool.getColumnField(conn, dbModel.getDBtype(), selecedTable, columnName);
                             if (!field.getRemark().equals(remark)) {
                                 field.setRemark(remark);
                             }
