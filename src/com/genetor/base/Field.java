@@ -14,6 +14,7 @@ public class Field {
     private String name_fl;
     private String name_fu;
     private String remark;
+    private String regex;
     private int datasize;
     private boolean nullable;
 
@@ -79,5 +80,13 @@ public class Field {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getRegex() {
+        return regex;
+    }
+
+    public void setRegex(String regex) {
+        this.regex = regex;
     }
 }

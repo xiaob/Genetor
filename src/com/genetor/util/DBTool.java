@@ -120,7 +120,7 @@ public class DBTool {
         ResultSet columnSet = databaseMetaData.getColumns(null, "%", tableName, "%");
         if (columnSet != null) {
             while (columnSet.next()) {
-                Object[] object = {true, columnSet.getString("COLUMN_NAME"), columnSet.getString("TYPE_NAME"), columnSet.getString("COLUMN_SIZE"), columnSet.getString("REMARKS")};
+                Object[] object = {true, columnSet.getString("COLUMN_NAME"), columnSet.getString("TYPE_NAME"), columnSet.getString("COLUMN_SIZE"), columnSet.getString("REMARKS"),""};
                 objects.add(object);
             }
         }

@@ -38,7 +38,7 @@ public class FrameItemTool {
     public static TableModel getColumnData(Connection conn, String tableName) {
         TableModel dataModel = null;
         try {
-            final String[] columnNames = {"select", "字段", "数据类型", "长度", "备注(可定义)"};
+            final String[] columnNames = {"select", "字段", "数据类型", "长度", "备注(可定义)", "验证类型"};
             final List<Object[]> columnList = DBTool.getAllColumnData(conn, tableName);
             dataModel = new AbstractTableModel() {
                 public int getColumnCount() {
@@ -62,7 +62,7 @@ public class FrameItemTool {
                 }
 
                 public boolean isCellEditable(int row, int col) {
-                    return col != 5;
+                    return col != 1 && col != 2 && col != 3;
                 }
 
                 public void setValueAt(Object aValue, int row, int column) {

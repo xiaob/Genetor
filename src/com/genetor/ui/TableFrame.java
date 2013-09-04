@@ -3,6 +3,7 @@ package com.genetor.ui;
 import com.genetor.Main;
 import com.genetor.TableData;
 import com.genetor.base.Field;
+import com.genetor.base.RegexField;
 import com.genetor.common.DBModel;
 import com.genetor.generate.FileGenerate;
 import com.genetor.util.Config;
@@ -12,9 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import org.jb2011.lnf.beautyeye.utils.JVM;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
+import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -187,9 +186,13 @@ public class TableFrame extends JFrame implements ActionListener {
                     if (isSelect) {
                         try {
                             String remark = (String) tableView.getModel().getValueAt(i, 4);
+                            Object regexField = tableView.getModel().getValueAt(i, 5);
                             Field field = DBTool.getColumnField(conn, dbModel.getDBtype(), selecedTable, columnName);
                             if (!field.getRemark().equals(remark)) {
                                 field.setRemark(remark);
+                            }
+                            if (regexField instanceof RegexField) {
+                                field.setRegex(((RegexField) regexField).getName());
                             }
                             rowSelectList.add(field);
                         } catch (SQLException e1) {
@@ -272,6 +275,8 @@ public class TableFrame extends JFrame implements ActionListener {
                         System.err.println("错误：为1.6及更高版本设置表格排序支持失败," + e.getMessage());
                     }
                 }
+
+
                 tableView.setModel(tableModel);
                 final MyCheckBoxRenderer check = new MyCheckBoxRenderer();
                 check.setSelected(true);
@@ -291,8 +296,41 @@ public class TableFrame extends JFrame implements ActionListener {
                         }
                     }
                 });
+
+
+                JComboBox validationBox = new JComboBox();
+
+                setValidationBoxValue(validationBox);
+
+                TableColumn valColumn = tableView.getColumn("验证类型");
+                valColumn.setCellEditor(new DefaultCellEditor(validationBox));
+                valColumn.setCellRenderer(new DefaultTableCellRenderer() {
+                    @Override
+                    protected void setValue(Object value) {
+                        if (value instanceof RegexField) {
+                            RegexField regexField = (RegexField) value;
+                            setText(regexField.getName());
+                        } else {
+                            super.setValue(value);
+                        }
+
+                    }
+                });
             }
         }
+    }
+
+    private void setValidationBoxValue(JComboBox validationBox) {
+        validationBox.addItem("");
+        validationBox.addItem(new RegexField("en", "纯英文"));
+        validationBox.addItem(new RegexField("number", "纯数字"));
+        validationBox.addItem(new RegexField("account", "字母数字下划线"));
+        validationBox.addItem(new RegexField("email", "电子邮箱"));
+        validationBox.addItem(new RegexField("url", "网址"));
+        validationBox.addItem(new RegexField("id", "身份证"));
+        validationBox.addItem(new RegexField("phone", "电话号码"));
+        validationBox.addItem(new RegexField("zip", "中国邮政编码"));
+        validationBox.addItem(new RegexField("custom", "自定义"));
     }
 
     class MyCheckBoxRenderer extends JCheckBox implements TableCellRenderer {
