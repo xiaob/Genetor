@@ -49,5 +49,19 @@ Java代码生成器，可根据数据库表+模版文件自动生成需要的各
 		datasize	: 数据库长度(INT)
 
 		nullable	: 可否为空(Boolean)
+		
+		regex       : 验证的key，下文将会说出对应关系。
 
 	}
+	
+验证的key和name对应关系
+
+		"en"> "纯英文"
+        "number"> "纯数字"
+        "account"> "字母数字下划线"
+        "email"> "电子邮箱"
+        "url"> "网址"
+        "id"> "身份证"
+        "phone"> "电话号码"
+        "zip"> "中国邮政编码"
+        "custom"> "自定义"
