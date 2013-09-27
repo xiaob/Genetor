@@ -39,7 +39,7 @@ public class FileGenerate {
                 if (!outFile.getParentFile().exists()) {
                     outFile.getParentFile().mkdirs();
                 }
-                PrintWriter pw = new PrintWriter(outPath);
+                PrintWriter pw = new PrintWriter(outPath,"UTF-8");
 
                 tpl.merge(getContext(tableData, conn), pw);
                 pw.close();

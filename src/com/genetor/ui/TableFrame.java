@@ -192,7 +192,7 @@ public class TableFrame extends JFrame implements ActionListener {
                                 field.setRemark(remark);
                             }
                             if (regexField instanceof RegexField) {
-                                field.setRegex(((RegexField) regexField).getName());
+                                field.setRegex(((RegexField) regexField).getKey());
                             }
                             rowSelectList.add(field);
                         } catch (SQLException e1) {
