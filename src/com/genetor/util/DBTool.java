@@ -84,7 +84,7 @@ public class DBTool {
         return columns;
     }
 
-    public static Field getColumnField(Connection conn,String dbtype, String tableName, String columnName) throws SQLException {
+    public static Field getColumnField(Connection conn, String dbtype, String tableName, String columnName) throws SQLException {
         Field field = new Field();
         DatabaseMetaData databaseMetaData = conn.getMetaData();
         ResultSet columnSet = databaseMetaData.getColumns(null, "%", tableName, columnName);
@@ -120,7 +120,7 @@ public class DBTool {
         ResultSet columnSet = databaseMetaData.getColumns(null, "%", tableName, "%");
         if (columnSet != null) {
             while (columnSet.next()) {
-                Object[] object = {true, columnSet.getString("COLUMN_NAME"), columnSet.getString("TYPE_NAME"), columnSet.getString("COLUMN_SIZE"), columnSet.getString("REMARKS"),""};
+                Object[] object = {true, columnSet.getString("COLUMN_NAME"), columnSet.getString("TYPE_NAME"), columnSet.getString("COLUMN_SIZE"), columnSet.getString("REMARKS"), ""};
                 objects.add(object);
             }
         }
@@ -154,11 +154,13 @@ public class DBTool {
             dataTypeProperties = Config.read(System.getProperty("user.dir") + File.separator + "conf" + File.separator + "datatype.ini");
         }
 
+        columnType = columnType.replaceAll(String.valueOf((char) 32), "");
+
         if (DBConnection.ORACLE_FLAG.equals(dbType)) {
-            columnType = dataTypeProperties.getProperty(DBConnection.ORACLE_FLAG + "." + columnType.toUpperCase());
+            columnType = dataTypeProperties.getProperty(DBConnection.ORACLE_FLAG + "." + columnType.toUpperCase().trim());
         }
         if (DBConnection.MYSQL_FLAG.equals(dbType)) {
-            columnType = dataTypeProperties.getProperty(DBConnection.MYSQL_FLAG + "." + columnType.toUpperCase());
+            columnType = dataTypeProperties.getProperty(DBConnection.MYSQL_FLAG + "." + columnType.toUpperCase().trim());
         }
         return columnType;
     }
